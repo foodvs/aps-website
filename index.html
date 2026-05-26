@@ -3,127 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>广州艾沛仕企业管理咨询有限公司 - APS猎头</title>
+    <title>APS Consulting | 广州艾沛仕</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family: "Microsoft YaHei",sans-serif;}
-        body{color:#333;background:#f8f9fa;line-height:1.8;}
-        .container{max-width:1100px;margin:0 auto;padding:0 20px;}
-        header{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.05);position:sticky;top:0;z-index:99;}
-        .nav{display:flex;justify-content:space-between;align-items:center;height:70px;}
-        .logo{font-size:22px;font-weight:bold;color:#2c3e50;}
-        .logo span{color:#2980b9;font-size:14px;margin-left:6px;}
-        .nav-menu a{margin-left:28px;text-decoration:none;color:#444;font-size:15px;transition:0.3s;}
-        .nav-menu a:hover{color:#2980b9;}
-        .banner{background:linear-gradient(135deg,#2c3e50,#34495e);color:#fff;padding:100px 0;text-align:center;}
-        .banner h1{font-size:40px;margin-bottom:16px;}
-        .banner p{font-size:17px;opacity:0.9;max-width:700px;margin:0 auto;}
-        .btn{display:inline-block;margin-top:28px;padding:12px 32px;background:#2980b9;color:#fff;text-decoration:none;border-radius:4px;}
-        .section{padding:70px 0;background:#fff;}
-        .title{text-align:center;margin-bottom:45px;}
-        .title h2{font-size:28px;color:#2c3e50;margin-bottom:10px;}
-        .title p{color:#777;}
-        .about{max-width:850px;margin:0 auto;text-align:center;font-size:16px;color:#555;line-height:2;}
-        .industry{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:35px;}
-        .industry .box{padding:28px;border:1px solid #eee;border-radius:6px;text-align:center;transition:0.3s;}
-        .industry .box:hover{border-color:#2980b9;transform:translateY(-4px);}
-        .industry .box h3{margin-bottom:8px;color:#2c3e50;}
-        .service{background:#f8f9fa;padding:30px;border-radius:6px;margin-bottom:16px;}
-        .contact{display:flex;flex-wrap:wrap;gap:36px;justify-content:center;margin-top:35px;text-align:center;}
-        footer{background:#2c3e50;color:#fff;text-align:center;padding:28px 0;margin-top:40px;font-size:14px;}
-        @media(max-width:768px){
-            .nav-menu{display:none;}
-            .banner h1{font-size:28px;}
-            .industry{grid-template-columns:1fr;}
+        /* --- 全局变量与重置 --- */
+        :root {
+            --primary-color: #0f172a; /* 深蓝黑，用于文字 */
+            --accent-color: #0284c7;  /* 亮蓝，用于强调 */
+            --text-light: #64748b;    /* 浅灰文字 */
+            --bg-light: #ffffff;      /* 纯白背景 */
+            --bg-gray: #f8fafc;       /* 极浅灰背景 */
+            --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { 
+            height: 100%; 
+            overflow: hidden; 
+            font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: var(--primary-color);
+            background-color: var(--bg-light);
+        }
+
+        /* --- 滚动容器 --- */
+        #main-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        /* --- 每一页的通用样式 --- */
+        section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* --- 导航栏 --- */
+        header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: auto;
+            padding: 1.5rem 2rem;
+            z-index: 100;
+            display: flex;
+            gap: 2rem;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.6;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        /* --- 第一页：首页 --- */
+        #home {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .logo span { color: var(--accent-color); }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-weight: 300;
+        }
+
+        /* --- 第二页：关于我们 --- */
+        #about {
+            background-color: var(--bg-light);
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 2; /* 增加行高，提升阅读体验 */
+            max-width: 900px;
+            margin: 0 auto;
+            color: var(--text-light);
+            text-align: justify; /* 两端对齐，使大段文字更整齐 */
+            text-align-last: center; /* 最后一行居中 */
+        }
+
+        /* --- 第三页：核心服务 --- */
+        #services {
+            background-color: var(--bg-gray);
+        }
+
+        .cards-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--bg-light);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-light);
+        }
+
+        /* --- 第四页：合作领域 --- */
+        #clients {
+            background-color: var(--bg-light);
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin-top: 3rem;
+        }
+
+        .tag-group {
+            background: var(--bg-gray);
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+            text-align: left;
+            min-width: 250px;
+        }
+
+        .tag-group h4 {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .tag-list {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* --- 第五页：联系我们 --- */
+        #contact {
+            /* 修改：背景改为浅色，不再使用深色背景 */
+            background-color: var(--bg-gray); 
+            color: var(--primary-color);
+        }
+
+        #contact .section-title {
+            color: var(--primary-color);
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            text-align: left;
+            /* 修改：卡片背景改为白色，增加阴影，使其在浅灰背景上凸显 */
+            background: #ffffff; 
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08); /* 增加阴影提升质感 */
+            border: 1px solid #e2e8f0;
+        }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-item strong {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-light); /* 标签颜色变浅 */
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-item span {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color); /* 电话号码使用深色，清晰易读 */
+        }
+
+        /* --- 响应式调整 --- */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .cards-container { flex-direction: column; align-items: center; }
+            .card { width: 100%; max-width: 350px; }
+            header { flex-direction: column; gap: 1rem; margin: 1rem; padding: 1rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="container nav">
-        <div class="logo">艾沛仕 APS <span>企业管理咨询</span></div>
-        <div class="nav-menu">
-            <a href="#home">首页</a>
-            <a href="#about">关于我们</a>
-            <a href="#industry">服务行业</a>
-            <a href="#service">猎头服务</a>
-            <a href="#contact">联系我们</a>
-        </div>
+    <!-- 导航栏 -->
+    <header>
+        <a class="nav-link" onclick="scrollToSection('home')">首页</a>
+        <a class="nav-link" onclick="scrollToSection('about')">关于我们</a>
+        <a class="nav-link" onclick="scrollToSection('services')">核心服务</a>
+        <a class="nav-link" onclick="scrollToSection('clients')">合作领域</a>
+        <a class="nav-link" onclick="scrollToSection('contact')">联系我们</a>
+    </header>
+
+    <div id="main-container">
+
+        <!-- 第一页：首页 -->
+        <section id="home">
+            <div class="logo">APS <span>Consulting</span></div>
+            <h1 class="hero-title">广州艾沛仕<br>企业管理咨询有限公司</h1>
+            <p class="hero-subtitle">Accurate People Solution · 精准人才解决方案</p>
+        </section>
+
+        <!-- 第二页：关于我们 -->
+        <section id="about">
+            <div class="section-label">Who We Are</div>
+            <h2 class="section-title">关于我们</h2>
+            <!-- 修改：替换为最新提供的正文内容 -->
+            <div class="about-text">
+                <p>广州艾沛仕企业管理咨询有限公司是一家专注于高端人才服务与RPO的猎头机构。拥有一支经验丰富、洞察力敏锐的猎头顾问团队，能够深入了解各行业动态与人才市场趋势，为客户提供精准高效的人力资源招聘服务。</p>
+                <br>
+                <p>艾沛仕始终坚持以客户为中心，秉持“诚信、高效、专业”的服务理念。无论是新兴行业的技术精英，还是传统领域的管理人才，团队都能通过广泛的人才网络，迅速锁定并猎取最合适的人选，致力于为企业和人才搭建起实现价值的桥梁，助力双方共同成长与发展。</p>
+            </div>
+        </section>
+
+        <!-- 第三页：核心服务 -->
+        <section id="services">
+            <div class="section-label">Our Services</div>
+            <h2 class="section-title">核心服务</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <h3>高端人才寻访</h3>
+                    <p>专注于战略 VP、总监级、技术负责人等中高端岗位。深度挖掘，精准匹配头部企业背景的顶尖人才，助力企业核心竞争力提升。</p>
+                </div>
+                <div class="card">
+                    <h3>一站式人才输送</h3>
+                    <p>从职位分析、需求评估到候选人推荐、面试跟进、薪酬谈判及背景调查的全流程服务，确保人才匹配成功，全方位提升客户满意度。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四页：合作领域 -->
+        <section id="clients">
+            <div class="section-label">Industries</div>
+            <h2 class="section-title">合作领域</h2>
+            <div class="tags-container">
+                <div class="tag-group">
+                    <h4>互联网 / 游戏</h4>
+                    <div class="tag-list">网易、三七互娱</div>
+                </div>
+
+                <!-- 修改：符号改为 / -->
+                <div class="tag-group">
+                    <h4>电商 / 教育</h4>
+                    <div class="tag-list">唯品会、蓝深科技、甜秘密、卓越教育</div>
+                </div>
+
+                <div class="tag-group">
+                    <h4>时尚 / 服饰</h4>
+                    <div class="tag-list">安踏、赫基、卡宾、UR、潮宏基</div>
+                </div>
+
+                <div class="tag-group">
+                    <h4>美妆 / 消费电子</h4>
+                    <div class="tag-list">溪木源、传音控股、星际悦动</div>
+                </div>
+
+                <div class="tag-group">
+                    <h4>更多领域</h4>
+                    <div class="tag-list">持续拓展中...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第五页：联系我们 -->
+        <section id="contact">
+            <div class="section-label">Contact Us</div>
+            <h2 class="section-title">联系我们</h2>
+            <!-- 修改：背景变浅，卡片变白，整体风格更明亮 -->
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div>
+                        <strong>合作咨询热线</strong>
+                        <span>13928890360</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div>
+                        <strong>公司地址</strong>
+                        <span style="color: var(--primary-color); font-size: 1rem; font-weight: 500;">广州市天河区金穗路星汇国际大厦西塔 22 楼</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
-</header>
 
-<section class="banner" id="home">
-    <div class="container">
-        <h1>广州艾沛仕企业管理咨询有限公司</h1>
-        <p>APS专业高端猎头服务 · 精准链接企业与精英人才</p>
-        <a href="#contact" class="btn">立即咨询合作</a>
-    </div>
-</section>
+    <script>
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
 
-<section class="section" id="about">
-    <div class="container">
-        <div class="title">
-            <h2>关于艾沛仕 APS</h2>
-            <p>专注中高端人才寻访，专业猎头服务机构</p>
-        </div>
-        <div class="about">
-            广州艾沛仕企业管理咨询有限公司（APS），专注于中高层管理、核心技术及行业稀缺人才的寻访与输送。
-            公司立足广州、辐射全国，以专业、精准、高效、诚信为服务理念，为企业快速匹配优质人才，为人才对接优质发展平台，实现企业与人才双向共赢。
-        </div>
-    </div>
-</section>
+        // 监听滚动，高亮导航
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
 
-<section class="section" style="background:#f8f9fa;" id="industry">
-    <div class="container">
-        <div class="title">
-            <h2>核心服务行业</h2>
-            <p>覆盖六大主流行业，人才资源丰富，匹配效率高</p>
-        </div>
-        <div class="industry">
-            <div class="box"><h3>互联网科技</h3><p>技术、产品、运营、管理等高端人才</p></div>
-            <div class="box"><h3>游戏文娱</h3><p>策划、研发、美术、发行、运营核心人才</p></div>
-            <div class="box"><h3>金融财经</h3><p>风控、财务、投行、管理类资深人才</p></div>
-            <div class="box"><h3>服装快消零售</h3><p>品牌、运营、供应链、门店管理人才</p></div>
-            <div class="box"><h3>教育培训</h3><p>校区管理、教研、市场、课程研发人才</p></div>
-            <div class="box"><h3>餐饮连锁</h3><p>品牌、区域运营、门店高管人才</p></div>
-        </div>
-    </div>
-</section>
+        document.getElementById('main-container').addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (document.getElementById('main-container').scrollTop >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
 
-<section class="section" id="service">
-    <div class="container">
-        <div class="title">
-            <h2>主营业务服务</h2>
-            <p>专业猎头 · 人才对接 · 一站式服务</p>
-        </div>
-        <div class="service">
-            <h3>1. 高端猎头人才寻访</h3>
-            <p>针对企业急缺高管、稀缺技术岗、资深骨干等岗位，提供定向挖猎、面试对接、背景调查、入职跟进全流程服务。</p>
-        </div>
-        <div class="service">
-            <h3>2. 人才职业规划与配套服务</h3>
-            <p>为中高端人才提供职业测评、岗位内推、入职指导、职业发展规划及背景调查等增值服务。</p>
-        </div>
-    </div>
-</section>
-
-<section class="section" style="background:#f8f9fa;" id="contact">
-    <div class="container">
-        <div class="title">
-            <h2>联系我们</h2>
-            <p>企业招聘合作 / 人才求职均可咨询</p>
-        </div>
-        <div class="contact">
-            <div><h3>公司名称</h3><p>广州艾沛仕企业管理咨询有限公司（APS）</p></div>
-            <div><h3>咨询热线</h3><p>13928890360</p></div>
-            <div><h3>办公地址</h3><p>广州市天河区金穗路星汇国际大厦西塔 22 楼</p></div>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <p>© 2026 广州艾沛仕企业管理咨询有限公司 版权所有 | APS 专业猎头服务</p>
-</footer>
-
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
